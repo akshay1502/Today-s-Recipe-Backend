@@ -1,0 +1,18 @@
+{
+  "name": "mongo-learning",
+  "version": "1.0.0",
+  "description": "mongo learning",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "akshay",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mongodb": "^4.1.4",
+    "mongoose": "^6.2.1",
+    "nodemailer": "^6.7.2",
+    "nodemon": "^2.0.15"
+  }
+}
