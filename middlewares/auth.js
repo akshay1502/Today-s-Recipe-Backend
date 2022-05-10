@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const mangoose = require('mongoose');
-const { userSchema } = require('../schema/user');
+const { userSchema } = require('../schema/auth');
 const user = new mangoose.model('user', userSchema);
 
 const authenticate = (req, res, next) => {
@@ -11,9 +11,8 @@ const authenticate = (req, res, next) => {
         if(err) {
           res.send('You are not authorized'); //not valid msg
         } else {
-          console.log(decodedToken);
-          const userData = await user.findById(decodedToken.id);
-          console.log(userData);
+          const userData = await user.findById(decodedToken);
+          req.userData = userData;
           next();
         }
       })
