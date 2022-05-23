@@ -14,6 +14,8 @@ const signupUser = async (req, res) => {
       id: user.id
     });
   } catch(err) {
+    console.log(err);
+    res.status(500).send({ message: 'Internal server error' });
     if (err.code === 11000) { 
       console.log('This email is already registered.')
       return res.status(400).send({message: 'Email already taken.'})

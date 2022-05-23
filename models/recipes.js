@@ -2,12 +2,13 @@ const mongoose = require('mongoose');
 const { recipeSchema } = require('../schema/recipes');
 const recipe = new mongoose.model("recipe", recipeSchema);
 
-const getRecipes = async (req, res) => {
+const getRecipes = async () => {
   try {
-    const result = await recipe.find();
-    res.json(result);
+    const allRecipes = await recipe.find();
+    return allRecipes;
   } catch (err) {
     console.log(err);
+    throw err;
   }
 }
 
@@ -22,11 +23,10 @@ const addRecipe = async (req, res) => {
   }
 }
 
-const getAuthorRecipes = async (req, res) => {
+const getAuthorRecipes = async (id) => {
   try {
-    const author = req.params.author;
-    const authorRecipes = await recipe.find({author: author});
-    Object.keys(authorRecipes).length ? res.json(authorRecipes) : res.send(`No recipes of ${author} found`);
+    const authorRecipes = await recipe.find({_id: id});
+    return authorRecipes;
   } catch (err) {
     res.status(404).send("Enable to get author Recipes");
   }

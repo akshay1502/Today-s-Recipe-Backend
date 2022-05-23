@@ -17,5 +17,5 @@ app.use(function (req, res, next) {
 });
 app.use(recipesRoute);
 app.use(authRoute);
-
+app.get('/', (req, res) => res.json({ message: 'Server running' }));
 app.listen(5000, () => console.log('server running'));
