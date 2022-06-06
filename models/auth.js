@@ -4,15 +4,19 @@ const user = new mongoose.model('user', userSchema);
 
 const signupUser = async (newUser) => {
   try {
-    const { id } = await new user(newUser).save();
-    return({ id, jsontoken });
+    const randomColor = Math.floor(Math.random()*16777215).toString(16);
+    const { id } = await new user({
+      ...newUser,
+      colorCode: randomColor
+    }).save();
+    return id;
   } catch (err) {
     console.log('Error creating a new user.', err)
     throw err;
   }
 }
 
-const getUser = async (userCredentials) => {
+const findUser = async (userCredentials) => {
   try {
     const doc = await user.findOne({ email: userCredentials.email });
     return doc;
@@ -24,5 +28,6 @@ const getUser = async (userCredentials) => {
 
 module.exports = {
   signupUser,
-  getUser,
+  findUser,
+  user,
 }

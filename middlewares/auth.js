@@ -6,7 +6,6 @@ const user = new mangoose.model('user', userSchema);
 const authenticate = (req, res, next) => {
   try {
     const token = req.cookies.jwt;
-    console.log(token);
     if (token) {
       jwt.verify(token, process.env.JSONSECRET, async (err, decodedToken) => {
         if(err) {

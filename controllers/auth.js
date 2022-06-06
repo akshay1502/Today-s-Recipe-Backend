@@ -7,11 +7,11 @@ const signupUser = async (req, res) => {
     let { email, password, firstName, lastName } = req.body;
     const salt = await bcrypt.genSalt();
     password = await bcrypt.hash(password, salt);
-    const user = await auth.signupUser({email, password, firstName, lastName});
-    jwtSign(user.id, res);
+    const userId = await auth.signupUser({email, password, firstName, lastName});
+    jwtSign(userId, res);
     res.status(200).send({
       message: 'New user created succefully',
-      id: user.id
+      id: userId
     });
   } catch(err) {
     console.log(err);
@@ -31,7 +31,7 @@ const signupUser = async (req, res) => {
 const loginUser = async (req, res) => {
   try {
     const { password } = req.body;
-    const user = await auth.getUser(req.body); 
+    const user = await auth.findUser(req.body); 
     if (user) {
       const userVerification = await bcrypt.compare(password, user.password);
       if (userVerification) {

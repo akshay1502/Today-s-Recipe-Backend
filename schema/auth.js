@@ -32,6 +32,8 @@ const userSchema = new mongoose.Schema({
     },
     required: true,
   },
+  colorCode: String,
+  profileImage: String
 });
 
 module.exports = {
