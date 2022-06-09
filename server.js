@@ -8,7 +8,7 @@ const authRoute = require('./routes/auth');
 const recipesRoute = require('./routes/recipes');
 const userRoute = require('./routes/users');
 
-app.use(express.json({limit: '30mb'}));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: '30mb' }));
 app.use(cookieParser());
 app.use(function (req, res, next) {

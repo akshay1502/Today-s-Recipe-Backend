@@ -10,3 +10,5 @@ cookie options yet to be handled ({ domain, path, httpOnly })
 *password* mongoose shcema works at time of storing the data, while joi works before continuing with the request by validating the payload.
 
 route for fetching user recipes
+
+notify user for like of recipe

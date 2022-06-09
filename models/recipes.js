@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { recipeSchema } = require('../schema/recipes');
 const recipe = new mongoose.model("recipe", recipeSchema);
 const { getUser } = require('./users');
+const user = mongoose.model('user');
 
 const getRecipes = async () => {
   try {
@@ -52,8 +53,43 @@ const getRecipeofId = async (id) => {
   }
 }
 
+const likeOrdislikeRecipe = async (id, userId, cond) => {
+  try {
+    let res;
+    if (cond) {
+      res = await recipe.findByIdAndUpdate(id, { $addToSet: { likes: userId } })
+    } else {
+      res = await recipe.findByIdAndUpdate(id, { $pull: { likes: userId }})
+    }
+    if (res) {
+      return res;
+    } else {
+      throw new Error("unable to likeOrdislike the recipe");
+    }
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+const bookmarkRecipe = async (recipeId, userId) => {
+ try {
+   const res = await user.findByIdAndUpdate(userId, { $addToSet: { bookmarkRecipes: recipeId }})
+   if(res) {
+     return res;
+   } else {
+     throw new Error('Unable to bookmark the recipe');
+   }
+ } catch (err) {
+   console.log(err);
+   throw err;
+ }
+}
+
 module.exports = {
   getRecipes,
   addRecipe,
-  getRecipeofId
+  getRecipeofId,
+  likeOrdislikeRecipe,
+  bookmarkRecipe
 }

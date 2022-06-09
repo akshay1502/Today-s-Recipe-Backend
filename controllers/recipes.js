@@ -13,6 +13,7 @@ const getRecipes = async (req, res) => {
 
 const addRecipe = async (req, res) => {
   try {
+    console.log(req.body);
     const imgFile = req.body.image;
     const { _id } = req.userData;
     const { secure_url } = await cloudinary.uploader.upload(imgFile, {
@@ -49,8 +50,38 @@ const getRecipeofId = async (req, res) => {
   }
 }
 
+const likeOrdislikeRecipe = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const userId = req.userData._id.valueOf();
+    const result = await recipes.likeOrdislikeRecipe(id, userId, req.body.like);
+    if (result) {
+      res.json({ message: `${req.body.like ? 'liked' : 'disliked' } ${id} recipe`});
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ message: 'Internal server error' });
+  }
+}
+
+const bookmarkRecipe = async (req, res) => {
+  try {
+    const recipeId = req.params.id;
+    const userId = req.userData._id;
+    const result = await recipes.bookmarkRecipe(recipeId, userId);
+    if (result) {
+      res.json({ message: `bookmarked ${recipeId} recipe` })
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ message: 'Internal server error' });
+  }
+}
+
 module.exports = {
   getRecipes,
   addRecipe,
-  getRecipeofId
+  getRecipeofId,
+  likeOrdislikeRecipe,
+  bookmarkRecipe
 }
