@@ -34,7 +34,9 @@ const userSchema = new mongoose.Schema({
   },
   colorCode: String,
   profileImage: String,
-  bookmarkRecipes: [String]
+  bookmarkRecipes: [String],
+  following: [String],
+  follower: [String]
 });
 
 module.exports = {

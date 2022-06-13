@@ -26,7 +26,23 @@ const getSelf = (req, res) => {
   }
 }
 
+const followUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const selfId = req.userData._id;
+    const cond = req.body.follow;
+    const { res1, res2 } = await user.followUser(userId, selfId, cond);
+    if (res1 && res2) {
+      res.json({ message: `${cond ? 'followed' : 'unfollowed' } ${userId}` });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).message({ message: 'Internal server error' });
+  }
+}
+
 module.exports = {
   getUser,
-  getSelf
+  getSelf,
+  followUser
 };

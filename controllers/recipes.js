@@ -52,11 +52,11 @@ const getRecipeofId = async (req, res) => {
 
 const likeOrdislikeRecipe = async (req, res) => {
   try {
-    const id = req.params.id;
+    const recipeId = req.params.id;
     const userId = req.userData._id.valueOf();
-    const result = await recipes.likeOrdislikeRecipe(id, userId, req.body.like);
+    const result = await recipes.likeOrdislikeRecipe(recipeId, userId, req.body.like);
     if (result) {
-      res.json({ message: `${req.body.like ? 'liked' : 'disliked' } ${id} recipe`});
+      res.json({ message: `${req.body.like ? 'liked' : 'disliked' } ${id} recipe` });
     }
   } catch (err) {
     console.log(err);
@@ -68,9 +68,10 @@ const bookmarkRecipe = async (req, res) => {
   try {
     const recipeId = req.params.id;
     const userId = req.userData._id;
-    const result = await recipes.bookmarkRecipe(recipeId, userId);
+    const data = req.body.bookmark;
+    const result = await recipes.bookmarkRecipe(recipeId, userId, data);
     if (result) {
-      res.json({ message: `bookmarked ${recipeId} recipe` })
+      res.json({ message: `${data ? 'bookmarked' : 'debookmarked' } ${recipeId} recipe` })
     }
   } catch (err) {
     console.log(err);
@@ -78,10 +79,21 @@ const bookmarkRecipe = async (req, res) => {
   }
 }
 
+const getSelfRecipes = async (req, res) => {
+  try {
+    const { _id } = req.userData;
+    const selfRecipes = await recipes.getSelfRecipes(_id);
+    res.json(selfRecipes);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ message: 'Internal server error' });
+  }
+}
 module.exports = {
   getRecipes,
   addRecipe,
   getRecipeofId,
   likeOrdislikeRecipe,
-  bookmarkRecipe
+  bookmarkRecipe,
+  getSelfRecipes
 }

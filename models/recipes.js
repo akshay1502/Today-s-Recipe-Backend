@@ -43,7 +43,7 @@ const getRecipeofId = async (id) => {
   try {
     const recipeOfId = await recipe.findById(id).lean().exec();
     const user = await getUser(recipeOfId.author);
-    recipeOfId.author = `${user.firstName} ${user.lastName}`;
+    recipeOfId.authorName = `${user.firstName} ${user.lastName}`;
     recipeOfId.authorProfileImage = user.profileImage;
     recipeOfId.authorColorCode = user.colorCode;
     return recipeOfId;
@@ -72,18 +72,33 @@ const likeOrdislikeRecipe = async (id, userId, cond) => {
   }
 }
 
-const bookmarkRecipe = async (recipeId, userId) => {
+const bookmarkRecipe = async (recipeId, userId, cond) => {
  try {
-   const res = await user.findByIdAndUpdate(userId, { $addToSet: { bookmarkRecipes: recipeId }})
-   if(res) {
-     return res;
-   } else {
-     throw new Error('Unable to bookmark the recipe');
-   }
- } catch (err) {
-   console.log(err);
+    let res;
+    if (cond) {
+      res = await user.findByIdAndUpdate(userId, { $addToSet: { bookmarkRecipes: recipeId }})
+    } else {
+      res = await user.findByIdAndUpdate(userId, { $pull: { bookmarkRecipes: recipeId }})
+    }
+    if(res) {
+      return res;
+    } else {
+      throw new Error('Unable to bookmark the recipe');
+    }
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+const getSelfRecipes = async (id) => {
+  try {
+    const recipes = await recipe.find({author: id});
+    return recipes;
+  } catch (err) {
+    console.log(err);
    throw err;
- }
+  }
 }
 
 module.exports = {
@@ -91,5 +106,6 @@ module.exports = {
   addRecipe,
   getRecipeofId,
   likeOrdislikeRecipe,
-  bookmarkRecipe
+  bookmarkRecipe,
+  getSelfRecipes
 }

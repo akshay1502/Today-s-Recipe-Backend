@@ -12,3 +12,5 @@ cookie options yet to be handled ({ domain, path, httpOnly })
 route for fetching user recipes
 
 notify user for like of recipe
+
+use graphql for fastening the api request process.
