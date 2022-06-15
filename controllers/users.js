@@ -2,7 +2,6 @@ const user = require('../models/users');
 
 const getUser = async (req, res) => {
   try {
-    console.log('calling from geUser');
     const id = req.params.id;
     const userData = await user.getUser(id);
     if (userData) {

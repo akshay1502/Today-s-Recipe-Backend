@@ -1,4 +1,5 @@
 const recipes = require('../models/recipes');
+const mongoose = require('mongoose');
 const { cloudinary } = require('../utils/cloudinary');
 
 const getRecipes = async (req, res) => {
@@ -82,18 +83,31 @@ const bookmarkRecipe = async (req, res) => {
 const getSelfRecipes = async (req, res) => {
   try {
     const { _id } = req.userData;
-    const selfRecipes = await recipes.getSelfRecipes(_id);
+    const selfRecipes = await recipes.getRecipesofUser(_id);
     res.json(selfRecipes);
   } catch (err) {
     console.log(err);
     res.status(500).send({ message: 'Internal server error' });
   }
 }
+
+const getRecipesofUser = async (req, res) => {
+  try {
+    const userId = mongoose.Types.ObjectId(req.params.id);
+    const recipesOfUser = await recipes.getRecipesofUser(userId);
+    res.json(recipesOfUser);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ message: 'Internal server error' });
+  }
+}
+
 module.exports = {
   getRecipes,
   addRecipe,
   getRecipeofId,
   likeOrdislikeRecipe,
   bookmarkRecipe,
-  getSelfRecipes
+  getSelfRecipes,
+  getRecipesofUser
 }

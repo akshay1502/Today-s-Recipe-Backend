@@ -9,7 +9,7 @@ const getRecipes = async () => {
     const allRecipes = await recipe.find().lean();
     await Promise.all(allRecipes.map(async (recipe) => {
       const user = await getUser(recipe.author);
-      recipe.author = `${user.firstName} ${user.lastName}`;
+      recipe.authorName = `${user.firstName} ${user.lastName}`;
       recipe.authorProfileImage = user.profileImage;
       recipe.authorColorCode = user.colorCode;
       return recipe;
@@ -91,13 +91,13 @@ const bookmarkRecipe = async (recipeId, userId, cond) => {
   }
 }
 
-const getSelfRecipes = async (id) => {
+const getRecipesofUser = async (id) => {
   try {
     const recipes = await recipe.find({author: id});
     return recipes;
   } catch (err) {
     console.log(err);
-   throw err;
+    throw err;
   }
 }
 
@@ -107,5 +107,5 @@ module.exports = {
   getRecipeofId,
   likeOrdislikeRecipe,
   bookmarkRecipe,
-  getSelfRecipes
+  getRecipesofUser
 }
