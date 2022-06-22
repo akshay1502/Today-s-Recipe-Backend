@@ -14,3 +14,10 @@ route for fetching user recipes
 notify user for like of recipe
 
 use graphql for fastening the api request process.
+
+// app.use(function (req, res, next) {
+//   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+//   res.setHeader('Access-Control-Allow-Credentials', true);
+//   next();
+// });

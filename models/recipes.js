@@ -101,11 +101,28 @@ const getRecipesofUser = async (id) => {
   }
 }
 
+const searchForRecipeQuery = async (query) => {
+  try {
+    const queryRecipes = await recipe.find({ $text: { $search: `${query}` } } );
+    await Promise.all(queryRecipes.map(async (recipe) => {
+      const user = await getUser(recipe.author);
+      recipe.authorName = `${user.firstName} ${user.lastName}`;
+      recipe.authorProfileImage = user.profileImage;
+      recipe.authorColorCode = user.colorCode;
+      return recipe;
+    }));
+    return queryRecipes;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
 module.exports = {
   getRecipes,
   addRecipe,
   getRecipeofId,
   likeOrdislikeRecipe,
   bookmarkRecipe,
-  getRecipesofUser
+  getRecipesofUser,
+  searchForRecipeQuery
 }

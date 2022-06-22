@@ -14,7 +14,6 @@ const getRecipes = async (req, res) => {
 
 const addRecipe = async (req, res) => {
   try {
-    console.log(req.body);
     const imgFile = req.body.image;
     const { _id } = req.userData;
     const { secure_url } = await cloudinary.uploader.upload(imgFile, {
@@ -25,7 +24,6 @@ const addRecipe = async (req, res) => {
       image: secure_url,
       author: _id
     });
-    console.log(recipeId);
     res.json({
       message: "Recipe posted succefully",
       id: recipeId
@@ -102,6 +100,16 @@ const getRecipesofUser = async (req, res) => {
   }
 }
 
+const searchForQuery = async (req, res) => {
+  try {
+    const query = req.query.query;
+    const result = await recipes.searchForRecipeQuery(query);
+    res.json(result);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ message: 'Internal server error' });
+  }
+}
 module.exports = {
   getRecipes,
   addRecipe,
@@ -109,5 +117,6 @@ module.exports = {
   likeOrdislikeRecipe,
   bookmarkRecipe,
   getSelfRecipes,
-  getRecipesofUser
+  getRecipesofUser,
+  searchForQuery
 }

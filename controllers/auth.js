@@ -52,7 +52,18 @@ const loginUser = async (req, res) => {
   }
 }
 
+const logout = (req, res) => {
+  try {
+    res.cookie('jwt', '', { maxAge: 1})
+    res.json({ message: 'Logout successfully' });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ message: 'Internal server error' });
+  }
+}
+
 module.exports = { 
   signupUser,
   loginUser,
+  logout,
 }
