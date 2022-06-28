@@ -6,5 +6,6 @@ const router = Router();
 router.get('/self', authenticate, users.getSelf);
 router.get('/:id', authenticate, users.getUser);
 router.patch('/:id/follow', authenticate, users.followUser);
+router.patch('/self/update', authenticate, users.updateSelf);
 
 module.exports = router;

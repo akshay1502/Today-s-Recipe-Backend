@@ -12,7 +12,7 @@ const authenticate = (req, res, next) => {
           res.status(403).send({ message: 'You are not authorized' });
         } else {
           const userData = await user.findById(decodedToken.id);
-          console.log(userData);
+          console.log(userData.email);
           req.userData = userData;
           next();
         }

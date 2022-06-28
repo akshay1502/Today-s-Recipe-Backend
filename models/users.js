@@ -28,7 +28,18 @@ const followUser = async (userId, selfId, cond) => {
   }
 }
 
+const updateSelf = async (userId, data) => {
+  try {
+    const result = await user.findByIdAndUpdate(userId, data);
+    return result;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
 module.exports = {
   getUser,
-  followUser
+  followUser,
+  updateSelf,
 };

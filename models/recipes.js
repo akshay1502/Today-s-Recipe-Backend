@@ -103,7 +103,7 @@ const getRecipesofUser = async (id) => {
 
 const searchForRecipeQuery = async (query) => {
   try {
-    const queryRecipes = await recipe.find({ $text: { $search: `${query}` } } );
+    const queryRecipes = await recipe.find({ $text: { $search: `${query}` }}).lean();
     await Promise.all(queryRecipes.map(async (recipe) => {
       const user = await getUser(recipe.author);
       recipe.authorName = `${user.firstName} ${user.lastName}`;

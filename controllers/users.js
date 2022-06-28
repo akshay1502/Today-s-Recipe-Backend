@@ -1,4 +1,6 @@
 const user = require('../models/users');
+const { userSchema } = require('../schema/auth');
+const { cloudinary } = require('../utils/cloudinary');
 
 const getUser = async (req, res) => {
   try {
@@ -40,8 +42,32 @@ const followUser = async (req, res) => {
   }
 }
 
+const updateSelf = async (req, res) => {
+  try {
+    const imgFile = req.body.profileImage;
+    const { _id } = req.userData;
+    const { secure_url } = await cloudinary.uploader.upload(imgFile, {
+      upload_preset: "today'srecipe"
+    })
+    const result = await user.updateSelf(_id, {
+      ...req.body,
+      profileImage: secure_url
+    })
+    if (result) {
+      res.json({
+        message: 'Profile updated successfully',
+        id: _id,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).message({ message: 'Internal server error' });
+  }
+}
+
 module.exports = {
   getUser,
   getSelf,
-  followUser
+  followUser,
+  updateSelf,
 };
