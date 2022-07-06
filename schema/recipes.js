@@ -7,7 +7,11 @@ const recipeSchema = new mongoose.Schema({
   recipe: Object,
   likes: [String],
   author: Object,
-  date: Number
+  date: Number,
+  comments: [{
+    userId: String,
+    comment: String
+  }],
   //  validator npm package for validations
 })
 

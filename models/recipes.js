@@ -117,6 +117,17 @@ const searchForRecipeQuery = async (query) => {
     throw err;
   }
 }
+
+const addComment = async (recipeId, comment) => {
+  try {
+    const result = await recipe.findByIdAndUpdate(recipeId, { $push: { comments: comment }})
+    return result;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
 module.exports = {
   getRecipes,
   addRecipe,
@@ -124,5 +135,6 @@ module.exports = {
   likeOrdislikeRecipe,
   bookmarkRecipe,
   getRecipesofUser,
-  searchForRecipeQuery
+  searchForRecipeQuery,
+  addComment
 }

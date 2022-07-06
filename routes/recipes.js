@@ -11,5 +11,6 @@ router.get('/search', authenticate, recipes.searchForQuery);
 router.get('/:id', authenticate, recipes.getRecipeofId);
 router.patch('/:id/likeOrdislike', authenticate, recipes.likeOrdislikeRecipe);
 router.patch('/:id/bookmark', authenticate, recipes.bookmarkRecipe);
+router.post('/:id/comment', authenticate, recipes.addComment);
 
 module.exports = router;

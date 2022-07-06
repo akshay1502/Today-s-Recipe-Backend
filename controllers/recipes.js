@@ -55,7 +55,7 @@ const likeOrdislikeRecipe = async (req, res) => {
     const userId = req.userData._id.valueOf();
     const result = await recipes.likeOrdislikeRecipe(recipeId, userId, req.body.like);
     if (result) {
-      res.json({ message: `${req.body.like ? 'liked' : 'disliked' } ${id} recipe` });
+      res.json({ message: `${req.body.like ? 'liked' : 'disliked' } ${recipeId} recipe` });
     }
   } catch (err) {
     console.log(err);
@@ -110,6 +110,25 @@ const searchForQuery = async (req, res) => {
     res.status(500).send({ message: 'Internal server error' });
   }
 }
+
+const addComment = async (req, res) => {
+  try {
+    const recipeId = req.params.id;
+    const { _id } = req.userData;
+    const comment = {
+      userId: _id,
+      comment: req.body.comment,
+    }
+    const result = await recipes.addComment(recipeId, comment);
+    if (result) {
+      res.json({ message: 'comment added successfully' });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ message: 'Internal server error' });
+  }
+}
+
 module.exports = {
   getRecipes,
   addRecipe,
@@ -118,5 +137,6 @@ module.exports = {
   bookmarkRecipe,
   getSelfRecipes,
   getRecipesofUser,
-  searchForQuery
+  searchForQuery,
+  addComment
 }
