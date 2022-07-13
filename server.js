@@ -3,7 +3,8 @@ const app = express();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
-require('./mongo_conn');
+const connectDB = require('./mongo_conn');
+connectDB();
 
 const authRoute = require('./routes/auth');
 
