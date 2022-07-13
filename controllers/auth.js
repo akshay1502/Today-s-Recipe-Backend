@@ -14,8 +14,7 @@ const signupUser = async (req, res) => {
       id: userId
     });
   } catch(err) {
-    console.log(err);
-    res.status(500).send({ message: 'Internal server error' });
+    console.log(err.code);
     if (err.code === 11000) { 
       console.log('This email is already registered.')
       return res.status(400).send({message: 'Email already taken.'})
@@ -24,7 +23,7 @@ const signupUser = async (req, res) => {
       console.log('Wrong payload');
       return res.status(400).send({message: 'Wrong payload'});
     }
-    return res.status(500).send({message: 'Internal server error'});
+    res.status(500).send({message: 'Internal server error'});
   }
 }
 
