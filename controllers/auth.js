@@ -4,6 +4,7 @@ const { jwtSign } = require('../helperFunctions/jwtSign');
 
 const signupUser = async (req, res) => {
   try {
+    console.log(req.body);
     let { email, password, firstName, lastName } = req.body;
     const salt = await bcrypt.genSalt();
     password = await bcrypt.hash(password, salt);

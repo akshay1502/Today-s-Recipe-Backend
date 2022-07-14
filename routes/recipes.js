@@ -3,7 +3,7 @@ const router = Router();
 const recipes = require('../controllers/recipes');
 const authenticate = require('../middlewares/auth');
 
-router.get('/', authenticate, recipes.getRecipes);
+router.get('/', recipes.getRecipes);
 router.post('/',authenticate, recipes.addRecipe);
 router.get('/users/self', authenticate, recipes.getSelfRecipes);
 router.get('/users/:id', authenticate, recipes.getRecipesofUser);
