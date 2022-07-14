@@ -14,6 +14,10 @@ app.use(cors({
   credentials: true,
   origin: ["https://todaysrecipe.herokuapp.com/", "http://localhost:3000"]
 }));
+app.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', 'https://todaysrecipe.herokuapp.com/');
+  next();
+})
 app.use(cookieParser());
 app.use("/recipes", require('./routes/recipes'));
 app.use("/users", require('./routes/users'));
