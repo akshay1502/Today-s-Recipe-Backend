@@ -14,7 +14,7 @@ const signupUser = async (req, res) => {
       id: userId
     });
   } catch(err) {
-    console.log(err.code);
+    console.log(err);
     if (err.code === 11000) { 
       console.log('This email is already registered.')
       return res.status(400).send({message: 'Email already taken.'})
