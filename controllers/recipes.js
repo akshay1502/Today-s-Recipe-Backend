@@ -5,7 +5,7 @@ const { cloudinary } = require('../utils/cloudinary');
 const getRecipes = async (req, res) => {
   try {
     const allRecipes = await recipes.getRecipes();
-    allRecipes.length ? res.json({allRecipes}) : res.json({ message: 'No recipes found. Add one to see.'});
+    allRecipes.length ? res.json(allRecipes) : res.json({ message: 'No recipes found. Add one to see.'});
   } catch (err) {
     console.log(err);
     res.status(500).send({ message: 'Internal server error' });
