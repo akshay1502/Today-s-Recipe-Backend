@@ -5,6 +5,7 @@ const jwtSign = (id, res) => {
     expiresIn: "31d"
   })
   res.cookie('jwt', jsontoken, {
+    domain: process.env.DOMAIN,
     path: '/', 
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 31),
     httpOnly: true,
