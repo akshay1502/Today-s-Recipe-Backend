@@ -2,7 +2,7 @@
   "name": "mongo-learning",
   "version": "1.0.0",
   "description": "mongo learning",
-  "main": "index.js",
+  "main": "server.js",
   "engines": {
     "node": "14.x"
   },
