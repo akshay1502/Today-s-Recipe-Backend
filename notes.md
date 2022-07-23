@@ -22,4 +22,3 @@ use graphql for fastening the api request process.
 //   next();
 // });
 
-// "rewrites": [{ "source": "/(.*)", "destination": "/api" }]
