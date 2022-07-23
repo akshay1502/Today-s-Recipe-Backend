@@ -12,7 +12,7 @@ app.use(express.json({ limit: '30mb' }));
 app.use(express.urlencoded({ extended: true, limit: '30mb' }));
 app.use(cors({
   credentials: true,
-  origin: ["https://todaysrecipe.herokuapp.com", "http://localhost:3000"]
+  origin: ["https://www.todaysrecipe.me", "http://localhost:3000"]
 }));
 app.use(cookieParser());
 app.use("/recipes", require('./routes/recipes'));
