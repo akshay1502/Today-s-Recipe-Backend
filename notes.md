@@ -21,3 +21,5 @@ use graphql for fastening the api request process.
 //   res.setHeader('Access-Control-Allow-Credentials', true);
 //   next();
 // });
+
+// "rewrites": [{ "source": "/(.*)", "destination": "/api" }]
