@@ -6,7 +6,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-  res.send("test");
+  res.json("test");
+});
+app.get("/recipes", (req, res) => {
+  res.json("get recipes");
 });
 
 
