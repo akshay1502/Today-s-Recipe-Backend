@@ -12,7 +12,6 @@ const recipeSchema = new mongoose.Schema({
     userId: String,
     comment: String
   }],
-  //  validator npm package for validations
 })
 
 module.exports = {

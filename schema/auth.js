@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
+    required: true,
     validate: {
       validator: function(value) {
         return  /^\S+@\S+\.\S+$/.test(value);
@@ -14,6 +15,8 @@ const userSchema = new mongoose.Schema({
   password: String,
   firstName: {
     type: String,
+    minlength: 2,
+    maxlength: 20,
     validate: {
       validator: function (value) {
         return /^[a-zA-Z]+$/g.test(value);
@@ -24,6 +27,8 @@ const userSchema = new mongoose.Schema({
   },
   lastName: {
     type: String,
+    minlength: 2,
+    maxlength: 20,
     validate: {
       validator: function (value) {
         return /^[a-zA-Z]+$/g.test(value);
