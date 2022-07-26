@@ -51,13 +51,7 @@ const loginUser = async (req, res) => {
 
 const logout = (req, res) => {
   try {
-    res.cookie('jwt', '', {
-      path: '/',
-      maxAge: 1,
-      httpOnly: true,
-      secure: true,
-      sameSite: 'Lax',
-    })
+    res.cookie('jwt', '', { maxAge: 1});
     res.json({ message: 'Logout successfully' });
   } catch (err) {
     console.log(err);
