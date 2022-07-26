@@ -52,8 +52,7 @@ const loginUser = async (req, res) => {
 const logout = (req, res) => {
   try {
     res.cookie('jwt', '', {
-      domain: process.env.DOMAIN,
-      path: '/', 
+      path: '/',
       maxAge: 1,
       httpOnly: true,
       secure: true,
