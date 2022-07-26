@@ -18,8 +18,8 @@ const signupUser = async (newUser) => {
 
 const findUser = async (userCredentials) => {
   try {
-    const user = await user.findOne({ email: userCredentials.email });
-    return user;
+    const doc = await user.findOne({ email: userCredentials.email });
+    return doc;
   } catch (err) {
     console.log('Error getting the user', err);
     throw err;
