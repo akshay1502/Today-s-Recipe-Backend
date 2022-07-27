@@ -25,7 +25,7 @@ const addRecipe = async (recipeData) => {
   try {
     const recipeDoc = new recipe({ 
       ...recipeData, 
-      likes: 0,
+      likes: [],
       comments: [],
       date: Date.now(),
     });
