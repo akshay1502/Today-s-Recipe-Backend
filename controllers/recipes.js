@@ -55,7 +55,10 @@ const likeOrdislikeRecipe = async (req, res) => {
     const userId = req.userData._id.valueOf();
     const result = await recipes.likeOrdislikeRecipe(recipeId, userId, req.body.like);
     if (result) {
-      res.json({ message: `${req.body.like ? 'liked' : 'disliked' } ${recipeId} recipe` });
+      res.json({ 
+        message: `${req.body.like ? 'liked' : 'disliked' } ${recipeId} recipe`,
+        success: true
+      });
     }
   } catch (err) {
     console.log(err);
@@ -70,7 +73,10 @@ const bookmarkRecipe = async (req, res) => {
     const data = req.body.bookmark;
     const result = await recipes.bookmarkRecipe(recipeId, userId, data);
     if (result) {
-      res.json({ message: `${data ? 'bookmarked' : 'debookmarked' } ${recipeId} recipe` })
+      res.json({ 
+        message: `${data ? 'bookmarked' : 'debookmarked' } ${recipeId} recipe`,
+        success: true
+      })
     }
   } catch (err) {
     console.log(err);
@@ -121,7 +127,10 @@ const addComment = async (req, res) => {
     }
     const result = await recipes.addComment(recipeId, comment);
     if (result) {
-      res.json({ message: 'comment added successfully' });
+      res.json({ 
+        message: 'comment added successfully',
+        success: true
+      });
     }
   } catch (err) {
     console.log(err);
